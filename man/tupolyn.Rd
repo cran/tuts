@@ -29,7 +29,7 @@ tupolyn(y, ti.mu, ti.sd, n.sim, polyorder, CV = FALSE, ...)
 }
 \examples{
 # Note: Most of models included in tuts package are computationally intensive. In the example
-# below I set parameters to meet CRAN’s testing requirement of maximum 5 sec per example.
+# below I set parameters to meet CRAN's testing requirement of maximum 5 sec per example.
 # A more practical example would contain N=50 in the first line of the code and n.sim=10000.
 
 #1. Import or simulate the data (a simulation is chosen for illustrative purposes):

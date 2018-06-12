@@ -23,7 +23,7 @@
 #'
 #' @examples
 #' # Note: Most of models included in tuts package are computationally intensive. In the example
-#' # below I set parameters to meet CRAN’s testing requirement of maximum 5 sec per example.
+#' # below I set parameters to meet CRAN's testing requirement of maximum 5 sec per example.
 #' # A more practical example would contain N=50 in the first line of the code and n.sim=10000.
 #'
 #' #1. Import or simulate the data (a simulation is chosen for illustrative purposes):
@@ -92,8 +92,8 @@ ti.sim<-sort(ti.sim.tmp)
 for (i in 1:(n-1)){
   dt.sim[i]<- ti.sim[i+1]-ti.sim[i]
 }
-ar1<-exp(-mean(dt.sim)/tau)
-ar1adj<-ar1+(1+3*ar1)/(n-1)
+AcCoef<-exp(-mean(dt.sim)/tau)
+AcCoefadj<-AcCoef+(1+3*AcCoef)/(n-1)
 tau~dlnorm(0, 0.001)
 }"
 
@@ -104,7 +104,7 @@ for(k in (1:n.chains)){
 }
 model=jags.model(textConnection(modelstring), data=data,inits=inits, n.chains=n.chains)
 update(model,n.iter=n.sim,thin=Thin)
-output=coda.samples(model=model,variable.names=c("ar1","ar1adj","tau","ti.sim"), n.iter=n.sim, thin=Thin)
+output=coda.samples(model=model,variable.names=c("AcCoef","AcCoefadj","tau","ti.sim"), n.iter=n.sim, thin=Thin)
 DIC = dic.samples(model=model,n.iter=n.sim,thin=Thin)
 
 Sim.Objects=JAGS.objects(output)
@@ -174,7 +174,7 @@ return(Sim.Objects)
 #'  - CI: credible interval ranging from 0.3 to 1 with default value set to 0.95.
 #' @examples
 #' # Note: Most of models included in tuts package are computationally intensive. In the example
-#' # below I set parameters to meet CRAN’s testing requirement of maximum 5 sec per example.
+#' # below I set parameters to meet CRAN's testing requirement of maximum 5 sec per example.
 #' # A more practical example would contain N=50 in the first line of the code and n.sim=10000.
 #'
 #' #1. Import or simulate the data (a simulation is chosen for illustrative purposes):
@@ -210,21 +210,21 @@ summary.tuts_ar1redf = function(object, ...) {
     if(burn<0 | burn> 0.5){stop('burn is bounded between 0 and 0.5')
     }
   }
-  n.sim=dim(object$ar1)[1]
+  n.sim=dim(object$AcCoef)[1]
   if (burn==0){BURN=1}else{BURN=floor(burn*n.sim)}
   #
   cat('\n')
   cat('Estimates of parameters of interest and timing:\n')
   cat('-----------------------------------------------\n')
-  ar1=object$ar1[BURN:dim(object$ar1)[1]]
-  ar1.lwr=quantile(ar1,(1-CI)/2)
-  ar1.med=quantile(ar1,0.5)
-  ar1.upr=quantile(ar1,1-(1-CI)/2)
+  AcCoef=object$AcCoef[BURN:dim(object$AcCoef)[1]]
+  AcCoef.lwr=quantile(AcCoef,(1-CI)/2)
+  AcCoef.med=quantile(AcCoef,0.5)
+  AcCoef.upr=quantile(AcCoef,1-(1-CI)/2)
 
-  ar1adj=object$ar1adj[BURN:dim(object$ar1adj)[1]]
-  ar1adj.lwr=quantile(ar1adj,(1-CI)/2)
-  ar1adj.med=quantile(ar1adj,0.5)
-  ar1adj.upr=quantile(ar1adj,1-(1-CI)/2)
+  AcCoefadj=object$AcCoefadj[BURN:dim(object$AcCoefadj)[1]]
+  AcCoefadj.lwr=quantile(AcCoefadj,(1-CI)/2)
+  AcCoefadj.med=quantile(AcCoefadj,0.5)
+  AcCoefadj.upr=quantile(AcCoefadj,1-(1-CI)/2)
 
   tau=object$tau[BURN:dim(object$tau)[1]]
   tau.lwr=quantile(tau,(1-CI)/2)
@@ -237,11 +237,11 @@ summary.tuts_ar1redf = function(object, ...) {
   ti.upr=apply(ti,2,'quantile',1-(1-CI)/2)
   tiNames=names(ti.med)
 
-  LWR=c(ar1.lwr,ar1adj.lwr,tau.lwr,ti.lwr)
-  MED=c(ar1.med,ar1adj.med,tau.med,ti.med)
-  UPR=c(ar1.upr,ar1adj.upr,tau.upr,ti.upr)
+  LWR=c(AcCoef.lwr,AcCoefadj.lwr,tau.lwr,ti.lwr)
+  MED=c(AcCoef.med,AcCoefadj.med,tau.med,ti.med)
+  UPR=c(AcCoef.upr,AcCoefadj.upr,tau.upr,ti.upr)
   TABLE2=data.frame(LWR,MED,UPR)
-  row.names(TABLE2)=c('ar1','ar1adj','tau',tiNames)
+  row.names(TABLE2)=c('AcCoef','AcCoefadj','tau',tiNames)
 
   colnames(TABLE2)=c(paste(round((1-CI)/2,3)*100,"%",sep=""),'50%',paste(round(1-(1-CI)/2,3)*100,"%",sep=""))
   print(TABLE2)
@@ -271,7 +271,7 @@ summary.tuts_ar1redf = function(object, ...) {
 #'
 #' @examples
 #' # Note: Most of models included in tuts package are computationally intensive. In the example
-#' # below I set parameters to meet CRAN’s testing requirement of maximum 5 sec per example.
+#' # below I set parameters to meet CRAN's testing requirement of maximum 5 sec per example.
 #' # A more practical example would contain N=50 in the first line of the code and n.sim=10000.
 #'
 #' #1. Import or simulate the data (a simulation is chosen for illustrative purposes):
@@ -316,7 +316,7 @@ plot.tuts_ar1redf = function(x, type, ...) {
     if(burn<0 | burn>0.7){stop('burn is bounded between 0 and 0.7')
     }
   }
-  n.sim=dim(x$ar1)[1]
+  n.sim=dim(x$AcCoef)[1]
   if (burn==0){BURN=1}else{BURN=floor(burn*n.sim)}
 
 
@@ -325,8 +325,8 @@ plot.tuts_ar1redf = function(x, type, ...) {
   if(type=='par') {
 
     graphics::par(mfrow=c(1,3))
-    graphics::plot(density(x$ar1[BURN:dim(x$ar1)[1]]),main="AR(1)")
-    graphics::plot(density(x$ar1adj[BURN:dim(x$ar1adj)[1]]),main="AR(1) adjusted")
+    graphics::plot(density(x$AcCoef[BURN:dim(x$AcCoef)[1]]),main="AcCoef")
+    graphics::plot(density(x$AcCoefadj[BURN:dim(x$AcCoefadj)[1]]),main="AcCoef adjusted")
     graphics::plot(density(x$tau[BURN:dim(x$tau)[1]]),main="tau")
     graphics::par(mfrow=c(1,1))
   }
@@ -347,7 +347,7 @@ plot.tuts_ar1redf = function(x, type, ...) {
     graphics::lines(y=PRED.MED,x=ti.sim[2:length(ti.sim)],type='l',col='blue',lwd=1,lty=1)
     graphics::lines(y=PRED.UPR,x=ti.sim[2:length(ti.sim)],type='l',col='blue',lwd=1,lty=2)
 
-    graphics::legend("topright",legend = c("Observed","Upper CI","Medium","Lower CI"),
+    graphics::legend("topright",legend = c("Observed","Upper CI","Median","Lower CI"),
            col=c("black","blue","blue","blue"),lwd=c(2,1,1,1),lty=c(1,2,1,2))
   }
   #################################################################################
@@ -397,7 +397,7 @@ plot.tuts_ar1redf = function(x, type, ...) {
   }
   if(type=='mcmc') {
     options(warn=-1)
-    mcmcplot(x$JAGS, parms=c('ar1','ar1adj','tau','ti.sim'))
+    mcmcplot(x$JAGS, parms=c('AcCoef','AcCoefadj','tau','ti.sim'))
     options(warn=0)
   }
   if(type=='tau') {

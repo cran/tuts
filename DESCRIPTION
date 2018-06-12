@@ -1,8 +1,8 @@
 Package: tuts
 Type: Package
 Title: Time Uncertain Time Series Analysis
-Version: 0.1.0
-Date: 2018-05-09
+Version: 0.1.1
+Date: 2018-06-12
 Authors@R: c(
 	person("Peter", "Franke", email = "peter.franke@ucdconnect.ie", role = c("aut","cre")),
 	person("Andrew", "Parnell", role = c("aut")))
@@ -15,9 +15,9 @@ RoxygenNote: 6.0.1
 Imports: coda, doParallel, foreach, lomb, mcmcplots, parallel, stats,
         truncnorm
 NeedsCompilation: no
-Packaged: 2018-06-09 22:18:24 UTC; Peter Max
+Packaged: 2018-06-12 04:19:22 UTC; Peter Max
 Author: Peter Franke [aut, cre],
   Andrew Parnell [aut]
 Maintainer: Peter Franke <peter.franke@ucdconnect.ie>
 Repository: CRAN
-Date/Publication: 2018-06-10 14:27:55 UTC
+Date/Publication: 2018-06-12 20:52:55 UTC

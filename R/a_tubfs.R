@@ -547,7 +547,7 @@ plot.tuts_BFS = function(x, type, ...) {
     graphics::lines(y=PRED.MED,x=ti.sim,type='l',col='blue',lwd=1,lty=1)
     graphics::lines(y=PRED.UPR,x=ti.sim,type='l',col='blue',lwd=1,lty=2)
 
-    graphics::legend("topright",legend = c("Observed","Upper CI","Medium","Lower CI"),
+    graphics::legend("topright",legend = c("Observed","Upper CI","Median","Lower CI"),
            col=c("black","blue","blue","blue"),lwd=c(2,1,1,1),lty=c(1,2,1,2))
   }
   #

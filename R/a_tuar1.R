@@ -14,7 +14,7 @@
 #'
 #' @examples
 #' # Note: Most of models included in tuts package are computationally intensive. In the example
-#' # below I set parameters to meet CRAN’s testing requirement of maximum 5 sec per example.
+#' # below I set parameters to meet CRAN's testing requirement of maximum 5 sec per example.
 #' # A more practical example would contain N=50 in the first line of the code and n.sim=10000.
 #'
 #' #1. Import or simulate the data (a simulation is chosen for illustrative purposes):
@@ -163,7 +163,7 @@ return(Sim.Objects)
 #'
 #' @examples
 #' # Note: Most of models included in tuts package are computationally intensive. In the example
-#' # below I set parameters to meet CRAN’s testing requirement of maximum 5 sec per example.
+#' # below I set parameters to meet CRAN's testing requirement of maximum 5 sec per example.
 #' # A more practical example would contain N=50 in the first line of the code and n.sim=10000.
 #'
 #' #1. Import or simulate the data (a simulation is chosen for illustrative purposes):
@@ -331,7 +331,7 @@ plot.tuts_ar1 = function(x, type, ...) {
     graphics::lines(y=PRED.MED,x=ti.sim[2:length(ti.sim)],type='l',col='blue',lwd=1,lty=1)
     graphics::lines(y=PRED.UPR,x=ti.sim[2:length(ti.sim)],type='l',col='blue',lwd=1,lty=2)
 
-    graphics::legend("topright",legend = c("Observed","Upper CI","Medium","Lower CI"),
+    graphics::legend("topright",legend = c("Observed","Upper CI","Median","Lower CI"),
            col=c("black","blue","blue","blue"),lwd=c(2,1,1,1),lty=c(1,2,1,2))
   }
   #
